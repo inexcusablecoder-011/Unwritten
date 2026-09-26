@@ -420,13 +420,16 @@ p {
   overflow: hidden;
   border: 1px solid var(--border-subtle);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  background: var(--bg-dark-alt);
+  background: #06040a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chapter-media img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-height: 480px;
+  object-fit: contain;
   display: block;
   transition: transform var(--transition-slow);
 }
@@ -544,9 +547,10 @@ p {
   background: #110d22;
   border: 1px solid var(--border-glow);
   border-radius: var(--radius-lg);
-  max-width: 720px;
+  max-width: 780px;
   width: 100%;
-  overflow: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
   position: relative;
   transform: scale(0.92);
@@ -583,14 +587,21 @@ p {
 
 .modal-img-container {
   width: 100%;
-  max-height: 360px;
+  max-height: 65vh;
+  background: #06040a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 
 .modal-img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 65vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .modal-body {
