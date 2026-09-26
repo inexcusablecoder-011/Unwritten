@@ -1,8 +1,8 @@
 /**
  * UNWRITTEN — Interactive Web Application Engine
  * ------------------------------------------------------------------
- * Handles particle animations, scroll observers, dynamic data rendering,
- * interactive card reveals, audio player synthesis, and modal windows.
+ * Handles particle & tulip petal animations, scroll observers, dynamic data,
+ * interactive cards, HTML5 audio playback with synth fallback, and lightbox modals.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     1. Background Particle & Starfield System (Canvas)
+     1. Background Particle & Floating Tulip Petal Canvas
      ========================================================================== */
   const canvas = document.getElementById('bg-canvas');
   if (canvas) {
@@ -21,23 +21,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const particles = [];
-    const PARTICLE_COUNT = Math.min(Math.floor(width * 0.08), 90);
+    const stars = [];
+    const petals = [];
+    const STAR_COUNT = Math.min(Math.floor(width * 0.06), 70);
+    const PETAL_COUNT = 25; // Gentle floating tulip petals
 
     class Star {
       constructor() {
         this.reset();
       }
-
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.size = Math.random() * 1.6 + 0.4;
+        this.size = Math.random() * 1.5 + 0.4;
         this.alpha = Math.random() * 0.8 + 0.2;
         this.speed = Math.random() * 0.2 + 0.05;
         this.twinkleSpeed = Math.random() * 0.02 + 0.005;
       }
-
       update() {
         this.y -= this.speed;
         if (this.y < 0) this.y = height;
@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (this.alpha < 0.1) this.alpha = 0.1;
         if (this.alpha > 0.9) this.alpha = 0.9;
       }
-
       draw() {
         ctx.fillStyle = `rgba(226, 217, 243, ${this.alpha})`;
         ctx.beginPath();
@@ -54,20 +53,55 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push(new Star());
+    class TulipPetal {
+      constructor() {
+        this.reset(true);
+      }
+      reset(initial = false) {
+        this.x = Math.random() * width;
+        this.y = initial ? Math.random() * height : -30;
+        this.size = Math.random() * 10 + 7;
+        this.speedY = Math.random() * 0.7 + 0.3;
+        this.speedX = Math.random() * 0.4 - 0.2;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.015;
+        this.opacity = Math.random() * 0.5 + 0.3;
+        const colors = ['#fb7185', '#f472b6', '#ec4899', '#c084fc', '#fda4af'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.008) * 0.4 + this.speedX;
+        this.rotation += this.rotSpeed;
+        if (this.y > height + 30) this.reset(false);
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        // Delicate curved tulip petal shape
+        ctx.moveTo(0, -this.size);
+        ctx.bezierCurveTo(this.size * 0.6, -this.size * 0.5, this.size * 0.6, this.size * 0.5, 0, this.size);
+        ctx.bezierCurveTo(-this.size * 0.6, this.size * 0.5, -this.size * 0.6, -this.size * 0.5, 0, -this.size);
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
-    function animateStars() {
+    for (let i = 0; i < STAR_COUNT; i++) stars.push(new Star());
+    for (let i = 0; i < PETAL_COUNT; i++) petals.push(new TulipPetal());
+
+    function animateCanvas() {
       ctx.clearRect(0, 0, width, height);
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateStars);
+      stars.forEach((s) => { s.update(); s.draw(); });
+      petals.forEach((p) => { p.update(); p.draw(); });
+      requestAnimationFrame(animateCanvas);
     }
 
-    animateStars();
+    animateCanvas();
 
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
@@ -83,35 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const openingLines = document.querySelectorAll('.opening-line');
 
   if (openingScreen) {
-    // Lock page scroll initially
     document.body.style.overflow = 'hidden';
 
-    // Sequence timing for text reveal
-    setTimeout(() => {
-      if (openingLines[0]) openingLines[0].classList.add('active');
-    }, 800);
-
-    setTimeout(() => {
-      if (openingLines[1]) openingLines[1].classList.add('active');
-    }, 2800);
-
-    setTimeout(() => {
-      if (enterBtn) enterBtn.classList.add('visible');
-    }, 4500);
+    setTimeout(() => { if (openingLines[0]) openingLines[0].classList.add('active'); }, 800);
+    setTimeout(() => { if (openingLines[1]) openingLines[1].classList.add('active'); }, 2800);
+    setTimeout(() => { if (enterBtn) enterBtn.classList.add('visible'); }, 4500);
 
     enterBtn.addEventListener('click', () => {
       openingScreen.classList.add('dismissed');
       document.body.style.overflow = '';
-      
-      // Start ambient audio on enter gesture if user desires
       initAudioEngine();
 
-      // Scroll smoothly to intro section
       const introSec = document.getElementById('section-intro');
       if (introSec) {
-        setTimeout(() => {
-          introSec.scrollIntoView({ behavior: 'smooth' });
-        }, 400);
+        setTimeout(() => { introSec.scrollIntoView({ behavior: 'smooth' }); }, 400);
       }
     });
   }
@@ -120,31 +139,23 @@ document.addEventListener('DOMContentLoaded', () => {
      3. Scroll Observer for Animations & Progressive Reveals
      ========================================================================== */
   const sections = document.querySelectorAll('.section');
-  const observerOptions = {
-    threshold: 0.2
-  };
-
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
-
-        // Check if final message section is reached
         if (entry.target.id === 'section-final') {
           triggerFinalSequence();
         }
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.2 });
 
   sections.forEach((sec) => sectionObserver.observe(sec));
 
   function triggerFinalSequence() {
     const lines = document.querySelectorAll('.final-line');
     lines.forEach((line, index) => {
-      setTimeout(() => {
-        line.classList.add('is-inview');
-      }, index * 1200);
+      setTimeout(() => { line.classList.add('is-inview'); }, index * 1200);
     });
   }
 
@@ -170,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     5. Section 4 — Moments Renderer & Modal Lightbox
+     5. Section 4 — Moments Renderer & Lightbox Modal
      ========================================================================== */
   const momentsContainer = document.getElementById('moments-grid');
   const modalOverlay = document.getElementById('moment-modal');
@@ -215,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openMomentModal(moment) {
     if (!modalOverlay) return;
-
     document.getElementById('modal-img').src = moment.image;
     document.getElementById('modal-img').alt = moment.title;
     document.getElementById('modal-date').textContent = moment.date;
@@ -235,15 +245,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (modalClose) modalClose.addEventListener('click', closeModal);
   if (modalOverlay) {
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) closeModal();
-    });
+    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
-      closeModal();
-    }
+    if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) closeModal();
   });
 
   renderMoments();
@@ -270,10 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="thought-hint">Click to reveal ✦</span>
       `;
 
-      card.addEventListener('click', () => {
-        card.classList.toggle('revealed');
-      });
-
+      card.addEventListener('click', () => card.classList.toggle('revealed'));
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -288,15 +291,17 @@ document.addEventListener('DOMContentLoaded', () => {
   renderThoughts();
 
   /* ==========================================================================
-     7. Section 6 — Web Audio API Synth & Music Player
+     7. Section 6 — HTML5 Audio & Web Audio Synth Hybrid Soundtrack Player
      ========================================================================== */
   let audioCtx = null;
   let isPlaying = false;
   let currentTrackIdx = 0;
   let synthInterval = null;
   let noteIndex = 0;
-  let progressTimer = null;
-  let currentProgress = 0;
+  
+  // HTML5 Audio Element for real MP3/audio file playback
+  const realAudio = new Audio();
+  let isUsingRealAudio = false;
 
   const playPauseBtn = document.getElementById('play-pause-btn');
   const prevBtn = document.getElementById('prev-track-btn');
@@ -313,9 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function initAudioEngine() {
     if (!audioCtx) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        audioCtx = new AudioContext();
-      }
+      if (AudioContext) audioCtx = new AudioContext();
     }
   }
 
@@ -324,22 +327,23 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
       gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.3);
+      gain.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.3);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.2);
-
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-
       osc.start();
       osc.stop(audioCtx.currentTime + 2.3);
-    } catch (err) {
-      console.warn('Audio playback error:', err);
-    }
+    } catch (err) {}
+  }
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
   }
 
   function loadTrack(index) {
@@ -350,68 +354,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (trackTitle) trackTitle.textContent = track.title;
     if (trackArtist) trackArtist.textContent = track.artist;
-    if (trackCover) {
-      trackCover.src = track.cover;
-      trackCover.alt = track.title;
-    }
+    if (trackCover) { trackCover.src = track.cover; trackCover.alt = track.title; }
     if (durationEl) durationEl.textContent = track.duration;
 
-    resetProgress();
+    if (track.audioSrc) {
+      realAudio.src = track.audioSrc;
+      isUsingRealAudio = true;
+    } else {
+      isUsingRealAudio = false;
+    }
   }
 
-  function resetProgress() {
-    currentProgress = 0;
-    if (progressFill) progressFill.style.width = '0%';
-    if (currentTimeEl) currentTimeEl.textContent = '0:00';
-  }
+  realAudio.addEventListener('timeupdate', () => {
+    if (realAudio.duration) {
+      const percent = (realAudio.currentTime / realAudio.duration) * 100;
+      if (progressFill) progressFill.style.width = `${percent}%`;
+      if (currentTimeEl) currentTimeEl.textContent = formatTime(realAudio.currentTime);
+      if (durationEl) durationEl.textContent = formatTime(realAudio.duration);
+    }
+  });
+
+  realAudio.addEventListener('ended', () => {
+    nextTrack();
+  });
+
+  realAudio.addEventListener('error', () => {
+    // If real audio file is missing or fails to load, fallback seamlessly to synth melody
+    isUsingRealAudio = false;
+  });
 
   function startPlayback() {
     initAudioEngine();
-    if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
 
     isPlaying = true;
     updateUIState();
 
     const track = data.soundtrack[currentTrackIdx];
-    noteIndex = 0;
 
-    // Play initial note immediately
-    if (track && track.notes) {
-      playSynthNote(track.notes[0]);
+    if (track.audioSrc) {
+      realAudio.play().then(() => {
+        isUsingRealAudio = true;
+      }).catch((err) => {
+        // Fallback to synth notes if browser blocks autoplay or file not found
+        isUsingRealAudio = false;
+        startSynthPlayback(track);
+      });
+    } else {
+      startSynthPlayback(track);
     }
+  }
 
-    // Loop synth notes
+  function startSynthPlayback(track) {
+    noteIndex = 0;
+    if (track && track.notes) playSynthNote(track.notes[0]);
+    if (synthInterval) clearInterval(synthInterval);
     synthInterval = setInterval(() => {
       if (track && track.notes) {
         noteIndex = (noteIndex + 1) % track.notes.length;
         playSynthNote(track.notes[noteIndex]);
       }
     }, 1800);
-
-    // Progress timer mock
-    progressTimer = setInterval(() => {
-      currentProgress += 0.5;
-      if (currentProgress > 100) {
-        currentProgress = 0;
-        nextTrack();
-        return;
-      }
-      if (progressFill) progressFill.style.width = `${currentProgress}%`;
-      
-      const seconds = Math.floor((currentProgress / 100) * 220);
-      const m = Math.floor(seconds / 60);
-      const s = seconds % 60;
-      if (currentTimeEl) currentTimeEl.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
-    }, 1000);
   }
 
   function stopPlayback() {
     isPlaying = false;
     updateUIState();
+    if (realAudio) realAudio.pause();
     if (synthInterval) clearInterval(synthInterval);
-    if (progressTimer) clearInterval(progressTimer);
   }
 
   function togglePlay() {
@@ -463,12 +473,15 @@ document.addEventListener('DOMContentLoaded', () => {
     progressBar.addEventListener('click', (e) => {
       const rect = progressBar.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
-      currentProgress = (clickX / rect.width) * 100;
-      if (progressFill) progressFill.style.width = `${currentProgress}%`;
+      const pct = clickX / rect.width;
+      if (isUsingRealAudio && realAudio.duration) {
+        realAudio.currentTime = pct * realAudio.duration;
+      } else if (progressFill) {
+        progressFill.style.width = `${pct * 100}%`;
+      }
     });
   }
 
-  // Load initial track
   if (data.soundtrack && data.soundtrack.length > 0) {
     loadTrack(0);
   }

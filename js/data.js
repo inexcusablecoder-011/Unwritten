@@ -15,7 +15,7 @@ window.UNWRITTEN_DATA = {
     title: "Where the path crossed",
     quote: "Somewhere along the way, you became someone I wanted to know a little better.",
     description: "It started quietly — no fireworks, no dramatic signals. Just a subtle feeling that conversations with you had a different kind of warmth. A realization that among all the noise, your voice stood out.",
-    image: "assets/images/chapter1.svg"
+    image: "assets/images/her1.jpg"
   },
 
   // Section 4: Moments Worth Remembering
@@ -26,7 +26,7 @@ window.UNWRITTEN_DATA = {
       title: "Our First Chat",
       description: "It started with some formal ways of getting to know each other, completely unaware of how deeply special this connection would soon become.",
       location: "Late Night Messages",
-      image: "assets/images/moment1.svg"
+      image: "assets/images/her2.jpg"
     },
     {
       id: "moment-2",
@@ -34,7 +34,7 @@ window.UNWRITTEN_DATA = {
       title: "The First Call",
       description: "She was bored of typing and decided to call. Hearing her voice for the very first time was a feeling that words simply cannot capture.",
       location: "First Phone Call",
-      image: "assets/images/moment2.svg"
+      image: "assets/images/her3.jpg"
     },
     {
       id: "moment-3",
@@ -42,7 +42,7 @@ window.UNWRITTEN_DATA = {
       title: "The Unplanned Planned Trip",
       description: "We met for a bike ride, fulfilling her romantic dream of long drives, dancing together under the open sky, and creating moments worth keeping forever.",
       location: "Bike Ride & Long Drive",
-      image: "assets/images/moment3.svg"
+      image: "assets/images/her4.jpg"
     }
   ],
 
@@ -78,7 +78,8 @@ window.UNWRITTEN_DATA = {
       artist: "Arijit Singh & Mithoon",
       duration: "4:22",
       cover: "assets/images/album1.svg",
-      // Melody notes for Tum Hi Ho synth player
+      // Local audio track path or online audio source
+      audioSrc: "assets/music/tum_hi_ho.mp3",
       notes: [415.30, 369.99, 329.63, 311.13, 277.18, 329.63, 369.99, 415.30]
     }
   ]
