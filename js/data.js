@@ -15,7 +15,7 @@ window.UNWRITTEN_DATA = {
     title: "Where the path crossed",
     quote: "Somewhere along the way, you became someone I wanted to know a little better.",
     description: "It started quietly — no fireworks, no dramatic signals. Just a subtle feeling that conversations with you had a different kind of warmth. A realization that among all the noise, your voice stood out.",
-    image: "assets/images/her4.jpg" // Swapped with her4.jpg
+    image: "assets/images/her4.jpg"
   },
 
   // Section 4: Moments Worth Remembering
@@ -38,11 +38,11 @@ window.UNWRITTEN_DATA = {
     },
     {
       id: "moment-3",
-      date: "Sept 2026 • The Open Road",
+      date: "A Chapter Still Unfolding ✦",
       title: "The Unplanned Planned Trip",
       description: "We met for a bike ride, fulfilling her romantic dream of long drives, dancing together under the open sky, and creating moments worth keeping forever.",
       location: "Bike Ride & Long Drive",
-      image: "assets/images/her1.jpg" // Swapped with her1.jpg
+      image: "assets/images/her1.jpg"
     }
   ],
 
@@ -78,25 +78,22 @@ window.UNWRITTEN_DATA = {
       artist: "Arijit Singh & Mithoon",
       duration: "4:22",
       cover: "assets/images/album1.svg",
-      // Reliable stream URL & local file path
       audioSrc: "assets/music/tum_hi_ho.mp3",
-      // Exact melody notes for piano melody synthesis of Tum Hi Ho:
-      // "Hum tere bin ab reh nahi sakte, tere bina kya wajood mera"
       notes: [
-        { freq: 554.37, duration: 0.4 }, // C#5 (Hum)
-        { freq: 493.88, duration: 0.4 }, // B4  (te-)
-        { freq: 554.37, duration: 0.5 }, // C#5 (-re)
-        { freq: 440.00, duration: 0.4 }, // A4  (bin)
-        { freq: 493.88, duration: 0.4 }, // B4  (ab)
-        { freq: 415.30, duration: 0.5 }, // G#4 (reh)
-        { freq: 440.00, duration: 0.4 }, // A4  (na-)
-        { freq: 369.99, duration: 0.6 }, // F#4 (-hi)
-        { freq: 415.30, duration: 0.5 }, // G#4 (sak-)
-        { freq: 329.63, duration: 0.8 }, // E4  (-te)
-        { freq: 369.99, duration: 0.4 }, // F#4 (Te-)
-        { freq: 311.13, duration: 0.4 }, // D#4 (-re)
-        { freq: 329.63, duration: 0.5 }, // E4  (bi-)
-        { freq: 277.18, duration: 1.0 }  // C#4 (-na...)
+        { freq: 554.37, duration: 0.4 },
+        { freq: 493.88, duration: 0.4 },
+        { freq: 554.37, duration: 0.5 },
+        { freq: 440.00, duration: 0.4 },
+        { freq: 493.88, duration: 0.4 },
+        { freq: 415.30, duration: 0.5 },
+        { freq: 440.00, duration: 0.4 },
+        { freq: 369.99, duration: 0.6 },
+        { freq: 415.30, duration: 0.5 },
+        { freq: 329.63, duration: 0.8 },
+        { freq: 369.99, duration: 0.4 },
+        { freq: 311.13, duration: 0.4 },
+        { freq: 329.63, duration: 0.5 },
+        { freq: 277.18, duration: 1.0 }
       ]
     }
   ]
