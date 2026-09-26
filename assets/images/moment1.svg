@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="m1-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0c1b"/>
+      <stop offset="100%" stop-color="#1e1838"/>
+    </linearGradient>
+    <radialGradient id="m1-lamp" cx="50%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#b48cfa" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#m1-bg)"/>
+  <circle cx="300" cy="120" r="160" fill="url(#m1-lamp)"/>
+  <path d="M 0 350 Q 300 320 600 350 L 600 400 L 0 400 Z" fill="#090710"/>
+  
+  <!-- Subtle coffee cup silhouette & warm steam -->
+  <path d="M 270 280 C 270 260, 330 260, 330 280 L 325 320 C 325 330, 275 330, 275 320 Z" fill="#2d264a" stroke="#b48cfa" stroke-width="1.5"/>
+  <path d="M 330 288 C 342 288, 342 308, 328 308" fill="none" stroke="#b48cfa" stroke-width="1.5"/>
+  
+  <!-- Steam lines -->
+  <path d="M 290 250 Q 295 230 285 210 T 295 190" fill="none" stroke="#e2d9f3" stroke-width="1" opacity="0.4"/>
+  <path d="M 310 255 Q 315 235 305 215 T 315 195" fill="none" stroke="#e2d9f3" stroke-width="1" opacity="0.4"/>
+
+  <text x="300" y="375" font-family="'Cormorant Garamond', serif" font-size="20" fill="#a78bfa" text-anchor="middle" letter-spacing="3">LATE NIGHT COFFEE &amp; LAUGHTER</text>
+</svg>

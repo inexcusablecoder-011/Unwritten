@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNWRITTEN ✦ Some stories have no predetermined ending</title>
+  <meta name="description" content="A cinematic, intimate, interactive experience representing a story that has started but is still being written." />
+  
+  <!-- Open Graph Meta -->
+  <meta property="og:title" content="UNWRITTEN" />
+  <meta property="og:description" content="Some stories are planned. Some stories just happen. Maybe this one... is still being written." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Animated Starfield Background Canvas -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Floating Quick Nav & Audio Toggle -->
+  <header class="floating-nav" id="main-header">
+    <a href="#section-intro" class="brand-mini">UNWRITTEN</a>
+    <button class="audio-toggle-btn" id="header-audio-btn" aria-label="Toggle Soundtrack">
+      <div class="audio-icon-bars" aria-hidden="true">
+        <span class="audio-bar"></span>
+        <span class="audio-bar"></span>
+        <span class="audio-bar"></span>
+      </div>
+      <span class="audio-text">Sound Off</span>
+    </button>
+  </header>
+
+  <!-- SECTION 1 — OPENING (Cinematic Screen) -->
+  <div class="opening-screen" id="opening-screen" role="dialog" aria-modal="true" aria-label="Cinematic Opening">
+    <div class="opening-content">
+      <h1 class="opening-title">UNWRITTEN</h1>
+      <div class="opening-lines">
+        <p class="opening-line">Some stories are planned.<br>Some stories just happen.</p>
+        <p class="opening-line">Maybe this one...<br>is still being written.</p>
+      </div>
+      <button class="enter-btn" id="enter-btn">ENTER ✦</button>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- SECTION 2 — INTRODUCTION -->
+    <section class="section intro-section" id="section-intro">
+      <div class="container">
+        <span class="section-label">PROLOGUE</span>
+        <h2 class="section-title serif-heading">Every story has a beginning.</h2>
+        <p class="intro-body">
+          I don't know exactly where this story is going.<br>
+          Maybe that's what makes it interesting.
+        </p>
+        <a href="#section-chapter1" class="scroll-indicator" aria-label="Scroll down to Chapter 01">
+          <span>SCROLL</span>
+          <span class="scroll-dot"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 3 — CHAPTER ONE -->
+    <section class="section chapter-section" id="section-chapter1">
+      <div class="container">
+        <span class="section-label">CHAPTER 01</span>
+        <h2 class="section-title serif-heading" id="chapter-title">Chapter 01 — The Beginning</h2>
+        <p class="subtitle">A moment frozen in time before the rest of the pages unfold.</p>
+
+        <article class="chapter-card">
+          <div class="chapter-text">
+            <div class="chapter-date" id="chapter-date">A quiet evening, 2024</div>
+            <h3 class="chapter-quote" id="chapter-quote">“Somewhere along the way, you became someone I wanted to know a little better.”</h3>
+            <p id="chapter-desc">
+              It started quietly — no fireworks, no dramatic signals. Just a subtle feeling that conversations with you had a different kind of warmth. A realization that among all the noise, your voice stood out.
+            </p>
+          </div>
+          <div class="chapter-media">
+            <img id="chapter-img" src="assets/images/chapter1.svg" alt="The First Spark" />
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 4 — MOMENTS -->
+    <section class="section moments-section" id="section-moments">
+      <div class="container">
+        <span class="section-label">MEMORIES</span>
+        <h2 class="section-title serif-heading">Moments Worth Remembering</h2>
+        <p class="subtitle">Little snapshots of time that made an ordinary day feel special.</p>
+
+        <div class="moments-grid" id="moments-grid">
+          <!-- Dynamically populated from js/data.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 — THINGS I NEVER SAID -->
+    <section class="section thoughts-section" id="section-thoughts">
+      <div class="container">
+        <span class="section-label">UNSPOKEN</span>
+        <h2 class="section-title serif-heading">Things I Never Said Out Loud</h2>
+        <p class="subtitle">A few thoughts left unsaid, quiet reflections saved for this page.</p>
+
+        <div class="thoughts-grid" id="thoughts-grid">
+          <!-- Dynamically populated from js/data.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6 — SOUNDTRACK -->
+    <section class="section player-section" id="section-soundtrack">
+      <div class="container">
+        <span class="section-label">ATMOSPHERE</span>
+        <h2 class="section-title serif-heading">Our Little Soundtrack</h2>
+        <p class="subtitle">Songs and melodies that carry the mood of our story.</p>
+
+        <div class="player-container">
+          <div class="player-cover">
+            <img src="assets/images/album1.svg" alt="Track Cover" id="player-cover-img" />
+          </div>
+          <div class="player-details">
+            <div>
+              <h3 class="player-track-title serif-heading" id="player-track-title">First Echoes</h3>
+              <span class="player-artist" id="player-artist">Ambient Dusk</span>
+            </div>
+
+            <div class="player-progress-wrapper">
+              <div class="player-progress-bar" id="player-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="player-progress-fill" id="player-progress-fill"></div>
+              </div>
+              <div class="player-time">
+                <span id="player-current-time">0:00</span>
+                <span id="player-duration">3:42</span>
+              </div>
+            </div>
+
+            <div class="player-controls">
+              <button class="control-btn" id="prev-track-btn" aria-label="Previous Track">⏮</button>
+              <button class="control-btn play-pause-btn" id="play-pause-btn" aria-label="Play Soundtrack">▶</button>
+              <button class="control-btn" id="next-track-btn" aria-label="Next Track">⏭</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7 — NEXT CHAPTER -->
+    <section class="section next-chapter-section" id="section-next">
+      <div class="container">
+        <div class="next-chapter-card">
+          <div class="lock-badge" aria-hidden="true">✦</div>
+          <h2 class="next-chapter-title serif-heading">Chapter 02</h2>
+          <div class="next-chapter-sub">Not written yet.</div>
+          <p>Maybe something happens worth remembering.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8 — FINAL MESSAGE -->
+    <section class="section final-section" id="section-final">
+      <div class="container">
+        <div class="final-stack">
+          <p class="final-line">Some stories have an ending.</p>
+          <p class="final-line">Ours doesn't have one yet.</p>
+          <p class="final-line">And honestly...</p>
+          <p class="final-line">I hope we get to write a few more chapters.</p>
+          <div class="final-signature final-line">— Unwritten</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Lightbox for Moments -->
+  <div class="modal-overlay" id="moment-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">✕</button>
+      <div class="modal-img-container">
+        <img id="modal-img" src="" alt="" />
+      </div>
+      <div class="modal-body">
+        <div class="moment-meta">
+          <span id="modal-date"></span>
+          <span id="modal-location"></span>
+        </div>
+        <h3 class="serif-heading" id="modal-title" style="font-size: 2rem; margin: 0.5rem 0 1rem;"></h3>
+        <p id="modal-desc" style="font-size: 1.1rem; line-height: 1.7;"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>UNWRITTEN ✦ An unfolding story.</p>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

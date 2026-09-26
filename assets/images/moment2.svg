@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="m2-bg" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a0812"/>
+      <stop offset="60%" stop-color="#211138"/>
+      <stop offset="100%" stop-color="#3b154c"/>
+    </linearGradient>
+    <radialGradient id="moon" cx="70%" cy="30%" r="35%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.8"/>
+      <stop offset="30%" stop-color="#f472b6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#m2-bg)"/>
+  <circle cx="420" cy="120" r="100" fill="url(#moon)"/>
+  <circle cx="420" cy="120" r="30" fill="#fef9c3" filter="drop-shadow(0 0 12px #fef08a)"/>
+  
+  <!-- Rooftop skyline silhouette -->
+  <path d="M 0 400 L 0 310 L 80 310 L 80 340 L 160 340 L 160 270 L 250 270 L 250 330 L 380 330 L 380 290 L 490 290 L 490 350 L 600 350 L 600 400 Z" fill="#08060e"/>
+  
+  <text x="300" y="380" font-family="'Cormorant Garamond', serif" font-size="20" fill="#f472b6" text-anchor="middle" letter-spacing="3">UNDER THE ROOFTOP STARS</text>
+</svg>

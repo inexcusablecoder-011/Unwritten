@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <radialGradient id="a3" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#f43f5e" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0f0c29" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#0a0812"/>
+  <circle cx="200" cy="200" r="140" fill="url(#a3)"/>
+  <path d="M 50 200 C 150 150, 250 250, 350 200" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+  <text x="200" y="375" font-family="'Cormorant Garamond', serif" font-size="16" fill="#fbbf24" text-anchor="middle" letter-spacing="2">UNWRITTEN HORIZON</text>
+</svg>

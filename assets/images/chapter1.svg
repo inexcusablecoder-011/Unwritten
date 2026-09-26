@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0a14"/>
+      <stop offset="50%" stop-color="#161226"/>
+      <stop offset="100%" stop-color="#08070d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="40%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#b48cfa" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#ec4899" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#08070d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  <circle cx="320" cy="200" r="180" fill="url(#glow)" filter="url(#blur)"/>
+  
+  <!-- Constellation / Star lines -->
+  <g stroke="#e2d9f3" stroke-opacity="0.3" stroke-width="1" fill="none">
+    <path d="M 150 180 L 260 120 L 380 190 L 520 140 L 640 220"/>
+    <path d="M 260 120 L 310 260 L 450 310 L 520 140"/>
+  </g>
+  
+  <!-- Glowing stars -->
+  <circle cx="150" cy="180" r="3" fill="#ffffff" filter="drop-shadow(0 0 6px #b48cfa)"/>
+  <circle cx="260" cy="120" r="4.5" fill="#ffffff" filter="drop-shadow(0 0 8px #ffffff)"/>
+  <circle cx="380" cy="190" r="3" fill="#e2d9f3"/>
+  <circle cx="520" cy="140" r="4" fill="#ffffff" filter="drop-shadow(0 0 8px #b48cfa)"/>
+  <circle cx="640" cy="220" r="3" fill="#ffffff"/>
+  <circle cx="310" cy="260" r="3.5" fill="#f472b6"/>
+  <circle cx="450" cy="310" r="3" fill="#ffffff"/>
+
+  <text x="400" y="420" font-family="'Cormorant Garamond', Georgia, serif" font-size="28" fill="#e2d9f3" font-style="italic" text-anchor="middle" letter-spacing="4" opacity="0.85">THE FIRST SPARK</text>
+</svg>

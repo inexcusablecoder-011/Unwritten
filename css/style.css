@@ -1,0 +1,943 @@
+/* ==========================================================================
+   UNWRITTEN — CSS Design System & Stylesheet
+   Cinematic, dark, intimate, and modern layout system
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design System Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --bg-dark: #08070d;
+  --bg-dark-alt: #0d0b16;
+  --bg-card: rgba(18, 15, 30, 0.65);
+  --bg-card-hover: rgba(26, 21, 42, 0.85);
+  --bg-glass: rgba(255, 255, 255, 0.03);
+
+  --accent-lavender: #b48cfa;
+  --accent-violet: #8b5cf6;
+  --accent-rose: #ec4899;
+  --accent-amber: #fbbf24;
+
+  --glow-lavender: rgba(180, 140, 250, 0.25);
+  --glow-pink: rgba(236, 72, 153, 0.2);
+
+  --text-primary: #f5f3ff;
+  --text-secondary: #d1c8e8;
+  --text-muted: #8b83a4;
+  --border-subtle: rgba(180, 140, 250, 0.12);
+  --border-glow: rgba(180, 140, 250, 0.35);
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing & Elevation */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s ease-out;
+
+  --container-max: 1140px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Core Elements
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  background: radial-gradient(circle at 50% 20%, #15102a 0%, var(--bg-dark) 70%);
+  background-attachment: fixed;
+}
+
+/* Starfield Background Canvas */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography & Layout Base
+   -------------------------------------------------------------------------- */
+h1, h2, h3, .serif-heading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  font-weight: 300;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  padding: 8rem 0;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent-lavender);
+  margin-bottom: 0.75rem;
+  opacity: 0.85;
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Floating Quick Header & Controls
+   -------------------------------------------------------------------------- */
+.floating-nav {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(13, 11, 22, 0.6);
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.brand-mini {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.audio-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.audio-toggle-btn:hover {
+  color: var(--accent-lavender);
+  background: var(--bg-glass);
+}
+
+.audio-icon-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.audio-bar {
+  width: 2px;
+  height: 100%;
+  background: var(--accent-lavender);
+  border-radius: 1px;
+  transform-origin: bottom;
+}
+
+.audio-toggle-btn.playing .audio-bar:nth-child(1) { animation: soundBar 0.8s ease-in-out infinite alternate; }
+.audio-toggle-btn.playing .audio-bar:nth-child(2) { animation: soundBar 0.6s ease-in-out infinite alternate 0.2s; }
+.audio-toggle-btn.playing .audio-bar:nth-child(3) { animation: soundBar 0.9s ease-in-out infinite alternate 0.4s; }
+
+@keyframes soundBar {
+  0% { transform: scaleY(0.2); }
+  100% { transform: scaleY(1); }
+}
+
+/* --------------------------------------------------------------------------
+   5. Section 1 — Cinematic Opening
+   -------------------------------------------------------------------------- */
+.opening-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #06050a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+}
+
+.opening-screen.dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.opening-content {
+  max-width: 700px;
+}
+
+.opening-title {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  letter-spacing: 0.35em;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #ffffff 0%, #b48cfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeInSlow 1.5s ease forward 0.3s forwards;
+}
+
+.opening-lines {
+  min-height: 140px;
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.opening-line {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 3vw, 1.85rem);
+  font-style: italic;
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.opening-line.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.enter-btn {
+  background: transparent;
+  border: 1px solid var(--border-glow);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.25em;
+  padding: 1rem 2.5rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-medium);
+  box-shadow: 0 0 25px var(--glow-lavender);
+}
+
+.enter-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.enter-btn:hover {
+  background: var(--accent-lavender);
+  color: var(--bg-dark);
+  box-shadow: 0 0 40px rgba(180, 140, 250, 0.6);
+  border-color: var(--accent-lavender);
+}
+
+/* --------------------------------------------------------------------------
+   6. Section 2 — Introduction
+   -------------------------------------------------------------------------- */
+.intro-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.intro-body {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 3rem;
+  font-weight: 300;
+}
+
+.scroll-indicator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+  color: var(--accent-lavender);
+}
+
+.scroll-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-lavender);
+  border-radius: 50%;
+  animation: floatPulse 2s infinite ease-in-out;
+}
+
+@keyframes floatPulse {
+  0%, 100% { transform: translateY(0); opacity: 0.3; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   7. Section 3 — Chapter One
+   -------------------------------------------------------------------------- */
+.chapter-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--glow-lavender) 0%, transparent 60%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.chapter-date {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-lavender);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.chapter-quote {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  line-height: 1.35;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.chapter-media {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: var(--bg-dark-alt);
+}
+
+.chapter-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.chapter-card:hover .chapter-media img {
+  transform: scale(1.03);
+}
+
+/* --------------------------------------------------------------------------
+   8. Section 4 — Moments (Cards & Modal)
+   -------------------------------------------------------------------------- */
+.moments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.moment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: transform var(--transition-medium), border-color var(--transition-medium), box-shadow var(--transition-medium);
+  display: flex;
+  flex-direction: column;
+}
+
+.moment-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--border-glow);
+  box-shadow: 0 15px 40px rgba(180, 140, 250, 0.15);
+  background: var(--bg-card-hover);
+}
+
+.moment-img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg-dark-alt);
+}
+
+.moment-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.moment-card:hover .moment-img-wrapper img {
+  transform: scale(1.06);
+}
+
+.moment-content {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.moment-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.moment-location {
+  color: var(--accent-lavender);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.moment-title {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.moment-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Modal Lightbox */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(6, 5, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  background: #110d22;
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-lg);
+  max-width: 720px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  position: relative;
+  transform: scale(0.92);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-box {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: background var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background: var(--accent-lavender);
+  color: var(--bg-dark);
+}
+
+.modal-img-container {
+  width: 100%;
+  max-height: 360px;
+  overflow: hidden;
+}
+
+.modal-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-body {
+  padding: 2.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. Section 5 — Things I Never Said Out Loud
+   -------------------------------------------------------------------------- */
+.thoughts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.75rem;
+}
+
+.thought-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 2.25rem;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--transition-medium);
+}
+
+.thought-card:hover {
+  border-color: var(--accent-lavender);
+  box-shadow: 0 10px 30px var(--glow-lavender);
+}
+
+.thought-teaser {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.thought-text {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  line-height: 1.45;
+  filter: blur(6px);
+  user-select: none;
+  opacity: 0.4;
+  transition: filter 0.6s ease, opacity 0.6s ease;
+}
+
+.thought-card.revealed .thought-text {
+  filter: blur(0);
+  user-select: text;
+  opacity: 1;
+}
+
+.thought-hint {
+  font-size: 0.75rem;
+  color: var(--accent-lavender);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.thought-card.revealed .thought-hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   10. Section 6 — Our Little Soundtrack
+   -------------------------------------------------------------------------- */
+.player-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.player-cover {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.player-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.player-track-title {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.player-artist {
+  color: var(--accent-lavender);
+  font-size: 0.95rem;
+}
+
+/* Progress bar */
+.player-progress-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.player-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-lavender), var(--accent-rose));
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.player-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Controls */
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn:hover {
+  color: var(--accent-lavender);
+  transform: scale(1.1);
+}
+
+.play-pause-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--accent-lavender);
+  color: var(--bg-dark);
+  font-size: 1.3rem;
+  box-shadow: 0 0 20px var(--glow-lavender);
+}
+
+.play-pause-btn:hover {
+  background: #c09bff;
+  color: var(--bg-dark);
+  transform: scale(1.06);
+}
+
+/* --------------------------------------------------------------------------
+   11. Section 7 — Next Chapter (Chapter 02 Locked)
+   -------------------------------------------------------------------------- */
+.next-chapter-card {
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-glow);
+  border-radius: var(--radius-lg);
+  padding: 5rem 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+}
+
+.lock-badge {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: rgba(180, 140, 250, 0.1);
+  border: 1px solid var(--border-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-lavender);
+  font-size: 1.5rem;
+  box-shadow: 0 0 25px var(--glow-lavender);
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px var(--glow-lavender); }
+  50% { box-shadow: 0 0 40px rgba(180, 140, 250, 0.4); }
+}
+
+.next-chapter-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.5rem;
+}
+
+.next-chapter-sub {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--accent-lavender);
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   12. Section 8 — Final Message
+   -------------------------------------------------------------------------- */
+.final-section {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.final-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 700px;
+}
+
+.final-line {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.final-line.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.final-signature {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-lavender);
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   13. Footer
+   -------------------------------------------------------------------------- */
+footer {
+  text-align: center;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   14. Responsiveness & Accessibility
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .chapter-card {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.25rem;
+  }
+  
+  .player-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.75rem;
+    text-align: center;
+  }
+
+  .player-cover {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .player-controls {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 5rem 0;
+  }
+
+  .floating-nav {
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+    justify-content: space-between;
+  }
+
+  .moments-grid, .thoughts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
