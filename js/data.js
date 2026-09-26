@@ -11,7 +11,7 @@ window.UNWRITTEN_DATA = {
   chapterOne: {
     chapterNumber: "Chapter 01",
     subheading: "The Beginning",
-    date: "A quiet evening, 2024",
+    date: "A quiet night, 2026",
     title: "Where the path crossed",
     quote: "Somewhere along the way, you became someone I wanted to know a little better.",
     description: "It started quietly — no fireworks, no dramatic signals. Just a subtle feeling that conversations with you had a different kind of warmth. A realization that among all the noise, your voice stood out.",
@@ -22,26 +22,26 @@ window.UNWRITTEN_DATA = {
   moments: [
     {
       id: "moment-1",
-      date: "October 14, 2024",
-      title: "Late Night Coffee & Unplanned Laughter",
-      description: "We intended to talk for fifteen minutes. Three hours later, the coffee was long cold, the street was quiet, and neither of us wanted to leave.",
-      location: "The Corner Café",
+      date: "Sept 22, 2026 • 10:40 PM",
+      title: "Our First Chat",
+      description: "It started with some formal ways of getting to know each other, completely unaware of how deeply special this connection would soon become.",
+      location: "Late Night Messages",
       image: "assets/images/moment1.svg"
     },
     {
       id: "moment-2",
-      date: "December 02, 2024",
-      title: "Under the Rooftop Stars",
-      description: "Freezing air, warm jackets, and a view of the city glowing beneath us. We talked about everything and nothing at all, wrapped in quiet comfort.",
-      location: "Skyline Overlook",
+      date: "Sept 25, 2026 • 10:33 AM",
+      title: "The First Call",
+      description: "She was bored of typing and decided to call. Hearing her voice for the very first time was a feeling that words simply cannot capture.",
+      location: "First Phone Call",
       image: "assets/images/moment2.svg"
     },
     {
       id: "moment-3",
-      date: "January 19, 2025",
-      title: "The Spontaneous Road Trip",
-      description: "No map, no strict destination — just good music playing through speakers and endless conversation as lights passed by in the twilight.",
-      location: "Coast Highway",
+      date: "Sept 2026 • The Open Road",
+      title: "The Unplanned Planned Trip",
+      description: "We met for a bike ride, fulfilling her romantic dream of long drives, dancing together under the open sky, and creating moments worth keeping forever.",
+      location: "Bike Ride & Long Drive",
       image: "assets/images/moment3.svg"
     }
   ],
@@ -74,28 +74,12 @@ window.UNWRITTEN_DATA = {
   soundtrack: [
     {
       id: "track-1",
-      title: "First Echoes",
-      artist: "Ambient Dusk",
-      duration: "3:42",
+      title: "Tum Hi Ho",
+      artist: "Arijit Singh & Mithoon",
+      duration: "4:22",
       cover: "assets/images/album1.svg",
-      // Synthesizer notes (MIDI pitches/frequencies) for Web Audio playback
-      notes: [261.63, 329.63, 392.00, 493.88, 392.00, 329.63]
-    },
-    {
-      id: "track-2",
-      title: "Midnight Conversations",
-      artist: "Unwritten Echoes",
-      duration: "4:15",
-      cover: "assets/images/album2.svg",
-      notes: [220.00, 261.63, 329.63, 440.00, 329.63, 261.63]
-    },
-    {
-      id: "track-3",
-      title: "Unwritten Horizon",
-      artist: "Starlight Reverie",
-      duration: "3:58",
-      cover: "assets/images/album3.svg",
-      notes: [196.00, 246.94, 293.66, 392.00, 293.66, 246.94]
+      // Melody notes for Tum Hi Ho synth player
+      notes: [415.30, 369.99, 329.63, 311.13, 277.18, 329.63, 369.99, 415.30]
     }
   ]
 };

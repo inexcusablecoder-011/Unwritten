@@ -2,25 +2,35 @@
   <defs>
     <linearGradient id="m1-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0f0c1b"/>
-      <stop offset="100%" stop-color="#1e1838"/>
+      <stop offset="60%" stop-color="#1e1430"/>
+      <stop offset="100%" stop-color="#281134"/>
     </linearGradient>
-    <radialGradient id="m1-lamp" cx="50%" cy="30%" r="40%">
-      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.4"/>
+    <radialGradient id="m1-glow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.35"/>
       <stop offset="70%" stop-color="#b48cfa" stop-opacity="0.1"/>
       <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="100%" height="100%" fill="url(#m1-bg)"/>
-  <circle cx="300" cy="120" r="160" fill="url(#m1-lamp)"/>
-  <path d="M 0 350 Q 300 320 600 350 L 600 400 L 0 400 Z" fill="#090710"/>
+  <circle cx="300" cy="160" r="160" fill="url(#m1-glow)"/>
   
-  <!-- Subtle coffee cup silhouette & warm steam -->
-  <path d="M 270 280 C 270 260, 330 260, 330 280 L 325 320 C 325 330, 275 330, 275 320 Z" fill="#2d264a" stroke="#b48cfa" stroke-width="1.5"/>
-  <path d="M 330 288 C 342 288, 342 308, 328 308" fill="none" stroke="#b48cfa" stroke-width="1.5"/>
-  
-  <!-- Steam lines -->
-  <path d="M 290 250 Q 295 230 285 210 T 295 190" fill="none" stroke="#e2d9f3" stroke-width="1" opacity="0.4"/>
-  <path d="M 310 255 Q 315 235 305 215 T 315 195" fill="none" stroke="#e2d9f3" stroke-width="1" opacity="0.4"/>
+  <!-- Chat Bubble Silhouette with Tulip Accent -->
+  <g transform="translate(230, 110)">
+    <rect x="0" y="0" width="140" height="90" rx="20" fill="none" stroke="#f472b6" stroke-width="2" opacity="0.6" filter="drop-shadow(0 0 10px #f472b6)"/>
+    <!-- Chat dots -->
+    <circle cx="45" cy="45" r="5" fill="#f472b6"/>
+    <circle cx="70" cy="45" r="5" fill="#b48cfa"/>
+    <circle cx="95" cy="45" r="5" fill="#e2d9f3"/>
+    
+    <!-- Delicate Tulip silhouette -->
+    <path d="M 70 120 C 60 100, 50 85, 70 70 C 90 85, 80 100, 70 120 Z" fill="#f472b6" opacity="0.8"/>
+    <path d="M 70 120 Q 70 140 70 150" stroke="#a78bfa" stroke-width="2" fill="none"/>
+  </g>
 
-  <text x="300" y="375" font-family="'Cormorant Garamond', serif" font-size="20" fill="#a78bfa" text-anchor="middle" letter-spacing="3">LATE NIGHT COFFEE &amp; LAUGHTER</text>
+  <!-- Floating Tulip Petals -->
+  <circle cx="150" cy="220" r="3" fill="#f472b6" opacity="0.6"/>
+  <circle cx="440" cy="180" r="4" fill="#b48cfa" opacity="0.7"/>
+  <circle cx="480" cy="250" r="2.5" fill="#f472b6"/>
+
+  <text x="300" y="375" font-family="'Cormorant Garamond', serif" font-size="20" fill="#f472b6" text-anchor="middle" letter-spacing="3">OUR FIRST CHAT</text>
 </svg>

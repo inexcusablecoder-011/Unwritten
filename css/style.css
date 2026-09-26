@@ -17,9 +17,11 @@
   --accent-lavender: #b48cfa;
   --accent-violet: #8b5cf6;
   --accent-rose: #ec4899;
+  --accent-tulip: #fb7185;
   --accent-amber: #fbbf24;
 
   --glow-lavender: rgba(180, 140, 250, 0.25);
+  --glow-tulip: rgba(251, 113, 133, 0.3);
   --glow-pink: rgba(236, 72, 153, 0.2);
 
   --text-primary: #f5f3ff;

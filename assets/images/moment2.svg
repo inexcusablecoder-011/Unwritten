@@ -2,21 +2,28 @@
   <defs>
     <linearGradient id="m2-bg" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#0a0812"/>
-      <stop offset="60%" stop-color="#211138"/>
-      <stop offset="100%" stop-color="#3b154c"/>
+      <stop offset="50%" stop-color="#211138"/>
+      <stop offset="100%" stop-color="#3d1847"/>
     </linearGradient>
-    <radialGradient id="moon" cx="70%" cy="30%" r="35%">
-      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.8"/>
-      <stop offset="30%" stop-color="#f472b6" stop-opacity="0.3"/>
+    <radialGradient id="voice-glow" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.4"/>
       <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="100%" height="100%" fill="url(#m2-bg)"/>
-  <circle cx="420" cy="120" r="100" fill="url(#moon)"/>
-  <circle cx="420" cy="120" r="30" fill="#fef9c3" filter="drop-shadow(0 0 12px #fef08a)"/>
+  <circle cx="300" cy="180" r="150" fill="url(#voice-glow)"/>
+
+  <!-- Soundwave Concentric Rings -->
+  <circle cx="300" cy="180" r="40" fill="none" stroke="#fb7185" stroke-width="1.5" opacity="0.8"/>
+  <circle cx="300" cy="180" r="70" fill="none" stroke="#c084fc" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <circle cx="300" cy="180" r="100" fill="none" stroke="#f472b6" stroke-width="1" opacity="0.4"/>
+
+  <!-- Glowing Tulip Silhouette at Center -->
+  <g transform="translate(300, 180) scale(0.8)">
+    <path d="M 0 10 C -15 -10, -25 -30, 0 -45 C 25 -30, 15 -10, 0 10 Z" fill="#fb7185" filter="drop-shadow(0 0 8px #fb7185)"/>
+    <path d="M -12 -15 C -25 -25, -20 -40, -5 -40" fill="none" stroke="#fef08a" stroke-width="1.5"/>
+    <path d="M 0 10 Q 0 35 0 45" stroke="#c084fc" stroke-width="2" fill="none"/>
+  </g>
   
-  <!-- Rooftop skyline silhouette -->
-  <path d="M 0 400 L 0 310 L 80 310 L 80 340 L 160 340 L 160 270 L 250 270 L 250 330 L 380 330 L 380 290 L 490 290 L 490 350 L 600 350 L 600 400 Z" fill="#08060e"/>
-  
-  <text x="300" y="380" font-family="'Cormorant Garamond', serif" font-size="20" fill="#f472b6" text-anchor="middle" letter-spacing="3">UNDER THE ROOFTOP STARS</text>
+  <text x="300" y="375" font-family="'Cormorant Garamond', serif" font-size="20" fill="#fb7185" text-anchor="middle" letter-spacing="3">THE FIRST CALL</text>
 </svg>
