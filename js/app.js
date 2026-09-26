@@ -82,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = this.color;
         ctx.globalAlpha = this.opacity;
         ctx.beginPath();
-        // Delicate curved tulip petal shape
         ctx.moveTo(0, -this.size);
         ctx.bezierCurveTo(this.size * 0.6, -this.size * 0.5, this.size * 0.6, this.size * 0.5, 0, this.size);
         ctx.bezierCurveTo(-this.size * 0.6, this.size * 0.5, -this.size * 0.6, -this.size * 0.5, 0, -this.size);
@@ -291,15 +290,14 @@ document.addEventListener('DOMContentLoaded', () => {
   renderThoughts();
 
   /* ==========================================================================
-     7. Section 6 — HTML5 Audio & Web Audio Synth Hybrid Soundtrack Player
+     7. Section 6 — Soundtrack Player (HTML5 Audio + Tum Hi Ho Piano Synth)
      ========================================================================== */
   let audioCtx = null;
   let isPlaying = false;
   let currentTrackIdx = 0;
-  let synthInterval = null;
+  let synthTimeout = null;
   let noteIndex = 0;
-  
-  // HTML5 Audio Element for real MP3/audio file playback
+
   const realAudio = new Audio();
   let isUsingRealAudio = false;
 
@@ -314,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentTimeEl = document.getElementById('player-current-time');
   const durationEl = document.getElementById('player-duration');
   const headerAudioBtn = document.getElementById('header-audio-btn');
+  const audioFileInput = document.getElementById('audio-file-input');
 
   function initAudioEngine() {
     if (!audioCtx) {
@@ -322,20 +321,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function playSynthNote(freq) {
+  // Soft piano timbre synthesizer for Tum Hi Ho melody
+  function playPianoNote(freq, noteDuration = 0.5) {
     if (!audioCtx || audioCtx.state === 'suspended') return;
     try {
-      const osc = audioCtx.createOscillator();
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.3);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.2);
-      osc.connect(gain);
+
+      osc1.type = 'triangle';
+      osc2.type = 'sine';
+      osc1.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      osc2.frequency.setValueAtTime(freq * 2, audioCtx.currentTime); // Harmonic octave
+
+      const now = audioCtx.currentTime;
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.2, now + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + noteDuration + 0.6);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
       gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 2.3);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + noteDuration + 0.7);
+      osc2.stop(now + noteDuration + 0.7);
     } catch (err) {}
   }
 
@@ -357,12 +368,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (trackCover) { trackCover.src = track.cover; trackCover.alt = track.title; }
     if (durationEl) durationEl.textContent = track.duration;
 
-    if (track.audioSrc) {
+    if (track.audioSrc && !realAudio.src) {
       realAudio.src = track.audioSrc;
-      isUsingRealAudio = true;
-    } else {
-      isUsingRealAudio = false;
     }
+  }
+
+  // Handle local user MP3 file upload
+  if (audioFileInput) {
+    audioFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const objectUrl = URL.createObjectURL(file);
+        realAudio.src = objectUrl;
+        isUsingRealAudio = true;
+        stopPlayback();
+        startPlayback();
+      }
+    });
   }
 
   realAudio.addEventListener('timeupdate', () => {
@@ -375,13 +397,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   realAudio.addEventListener('ended', () => {
-    nextTrack();
+    stopPlayback();
   });
 
-  realAudio.addEventListener('error', () => {
-    // If real audio file is missing or fails to load, fallback seamlessly to synth melody
-    isUsingRealAudio = false;
-  });
+  function playTumHiHoMelodyLoop(track) {
+    if (!isPlaying || isUsingRealAudio) return;
+    const notes = track.notes || [];
+    if (notes.length === 0) return;
+
+    const note = notes[noteIndex];
+    const freq = typeof note === 'object' ? note.freq : note;
+    const duration = typeof note === 'object' ? note.duration : 0.5;
+
+    playPianoNote(freq, duration);
+
+    noteIndex = (noteIndex + 1) % notes.length;
+    synthTimeout = setTimeout(() => {
+      playTumHiHoMelodyLoop(track);
+    }, (duration + 0.15) * 1000);
+  }
 
   function startPlayback() {
     initAudioEngine();
@@ -392,36 +426,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const track = data.soundtrack[currentTrackIdx];
 
-    if (track.audioSrc) {
+    if (realAudio.src && realAudio.src.length > 0) {
       realAudio.play().then(() => {
         isUsingRealAudio = true;
-      }).catch((err) => {
-        // Fallback to synth notes if browser blocks autoplay or file not found
+      }).catch(() => {
         isUsingRealAudio = false;
-        startSynthPlayback(track);
+        noteIndex = 0;
+        playTumHiHoMelodyLoop(track);
       });
     } else {
-      startSynthPlayback(track);
+      isUsingRealAudio = false;
+      noteIndex = 0;
+      playTumHiHoMelodyLoop(track);
     }
-  }
-
-  function startSynthPlayback(track) {
-    noteIndex = 0;
-    if (track && track.notes) playSynthNote(track.notes[0]);
-    if (synthInterval) clearInterval(synthInterval);
-    synthInterval = setInterval(() => {
-      if (track && track.notes) {
-        noteIndex = (noteIndex + 1) % track.notes.length;
-        playSynthNote(track.notes[noteIndex]);
-      }
-    }, 1800);
   }
 
   function stopPlayback() {
     isPlaying = false;
     updateUIState();
     if (realAudio) realAudio.pause();
-    if (synthInterval) clearInterval(synthInterval);
+    if (synthTimeout) clearTimeout(synthTimeout);
   }
 
   function togglePlay() {
